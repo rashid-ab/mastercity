@@ -1,0 +1,411 @@
+body {
+    color: black;
+    font-family: 'Roboto', sans-serif;
+}
+
+
+/* .dataTables_empty {
+    display: none !important;
+} */
+
+.logoutlink a {
+    color: black !important;
+}
+
+.mastdata {
+    width: 50%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.mastrow th {
+    width: 50%;
+}
+
+.logoutlist {
+    float: right !important;
+}
+
+.navbar-nav {
+    float: none !important;
+}
+
+.items-div,
+.plot-div {
+    height: 400px;
+}
+
+.form-control {
+    height: 41px;
+}
+
+.navbar-default {
+    background-color: #a3d1f1;
+}
+
+.navbar-nav li a {
+    color: white !important;
+    font-weight: bold;
+}
+
+.form-control,
+.btn {
+    border-radius: 3px;
+}
+
+.signup-form {
+    width: 250px;
+    box-shadow: 2px 2px 2px 2px #888888;
+    float: left;
+}
+
+.signup-form form .form-group input {
+    font-size: 18px;
+}
+
+.signup-form form {
+    color: #999;
+    border-radius: 3px;
+    background: #fff;
+    box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+    padding: 30px;
+}
+
+.signup-form h2 {
+    color: #333;
+    font-weight: bold;
+    margin-top: 0;
+}
+
+.signup-form hr {
+    margin: 0 -30px 20px;
+}
+
+.signup-form .form-group {
+    margin-bottom: 20px;
+}
+
+.signup-form input[type="checkbox"] {
+    margin-top: 3px;
+}
+
+.signup-form .row div:first-child {
+    padding-right: 10px;
+}
+
+.signup-form .row div:last-child {
+    padding-left: 10px;
+}
+
+.navbar-default .navbar-nav>.active>a {
+    background-color: #f50000;
+}
+
+.signup-form .btn {
+    font-size: 16px;
+    font-weight: bold;
+    background: #a3d1f1;
+    border: none;
+    min-width: 140px;
+}
+
+b {
+    color: black
+}
+
+.signup-form .btn:hover,
+.signup-form .btn:focus {
+    background: #f50000 !important;
+    outline: none;
+}
+
+.signup-form a {
+    color: #fff;
+    text-decoration: underline;
+}
+
+.signup-form a:hover {
+    text-decoration: none;
+}
+
+.signup-form form a {
+    color: #3598dc;
+    text-decoration: none;
+}
+
+.signup-form form a:hover {
+    text-decoration: underline;
+}
+
+.signup-form .hint-text {
+    padding-bottom: 15px;
+    text-align: center;
+}
+
+.table-wrapper {
+    background: #fff;
+    padding-left: 50px;
+    margin: 30px 0;
+    margin-left: 50px;
+    width: 820px;
+    float: left;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, .05);
+}
+
+.table-title {
+    font-size: 15px;
+    padding-bottom: 10px;
+    margin: 0 0 10px;
+    min-height: 45px;
+}
+
+.table-title h2 {
+    margin: 5px 0 0;
+    font-size: 24px;
+}
+
+.table-title select {
+    border-color: #ddd;
+    border-width: 0 0 1px 0;
+    padding: 3px 10px 3px 5px;
+    margin: 0 5px;
+}
+
+.table-title .show-entries {
+    margin-top: 7px;
+}
+
+.search-box {
+    position: relative;
+    float: right;
+}
+
+.search-box .input-group {
+    width: 770px;
+    position: absolute;
+    right: 0;
+}
+
+.search-box .input-group-addon,
+.search-box input {
+    border-color: #ddd;
+    border-radius: 0;
+}
+
+.search-box .input-group-addon {
+    border: none;
+    border: none;
+    background: transparent;
+    position: absolute;
+    z-index: 9;
+}
+
+.search-box input {
+    height: 34px;
+    padding-left: 28px;
+    box-shadow: none !important;
+    border-width: 0 0 1px 0;
+}
+
+.search-box input:focus {}
+
+.search-box i {
+    color: #a0a5b1;
+    font-size: 19px;
+    position: relative;
+    top: 2px;
+    left: -10px;
+}
+
+table.table tr th,
+table.table tr td {
+    border-color: #e9e9e9;
+}
+
+table.table th i {
+    font-size: 13px;
+    margin: 0 5px;
+    cursor: pointer;
+}
+
+table.table td:last-child {
+    width: 130px;
+}
+
+table.table td a {
+    color: #a0a5b1;
+    display: inline-block;
+    margin: 0 5px;
+}
+
+table.table td a.view {
+    color: #03A9F4;
+}
+
+table.table td a.edit {
+    color: #FFC107;
+}
+
+table.table td a.delete {
+    color: #E34724;
+}
+
+table.table td i {
+    font-size: 19px;
+}
+
+.pagination {
+    float: right;
+    margin: 0 0 5px;
+}
+
+.pagination li a {
+    border: none;
+    font-size: 13px;
+    min-width: 30px;
+    min-height: 30px;
+    padding: 0 10px;
+    color: #999;
+    margin: 0 2px;
+    line-height: 30px;
+    border-radius: 30px !important;
+    text-align: center;
+}
+
+.pagination li a:hover {
+    color: #666;
+}
+
+.pagination li.active a {
+    background: #03A9F4;
+}
+
+.pagination li.active a:hover {
+    background: #0397d6;
+}
+
+.pagination li.disabled i {
+    color: #ccc;
+}
+
+.pagination li i {
+    font-size: 16px;
+    padding-top: 6px
+}
+
+.hint-text {
+    float: left;
+    margin-top: 10px;
+    font-size: 13px;
+}
+
+.party-form {
+    display: none;
+}
+
+.forms_selection {
+    margin-right: auto;
+    margin-left: auto;
+}
+
+.party-form,
+.perday-form {
+    padding-top: 20px;
+}
+
+.navbar-static-top {
+    background: #f50000;
+}
+
+.navbar-default .navbar-nav>.open>a,
+.navbar-default .navbar-nav>.open>a:focus,
+.navbar-default .navbar-nav>.open>a:hover {
+    background-color: #99919126;
+}
+
+.navbar-default .navbar-nav>li:hover {
+    background-color: #99919126 !important;
+}
+
+.navbar-default .navbar-nav>li>a:hover {
+    background-color: #99919126 !important;
+}
+
+.table-bordered {
+    border: 2px solid #f50000;
+}
+
+.btn {
+    background: #f50000 !important;
+}
+
+.btn:hover {
+    background: #f50000 !important;
+}
+
+.table_bottom {
+    border-bottom: 1px solid #f50000 !important;
+}
+
+.table-bordered,
+.table-bordered thead tr th {
+    text-align: center;
+}
+
+.thekedar-form {
+    display: none;
+}
+
+.perday_search {
+    width: 200px !important;
+    margin-right: 20px;
+}
+
+.search-box .inputs-group {
+    width: 770px;
+    position: absolute;
+    /*right: 0;*/
+}
+
+#party_total,
+.recieve_total,
+.party_header_total,
+#total_recieve,
+#total_payment,
+#total {
+    font-weight: bold !important;
+}
+
+@media print {
+    * {
+        -webkit-print-color-adjust: exact;
+    }
+    .forms_selection {
+        display: none;
+    }
+    .signup-form {
+        display: none;
+    }
+    .table-title {
+        display: none;
+    }
+    .perday_hid {
+        display: none !important;
+    }
+    .perday_print,
+    .party_print,
+    .thekedar_print,
+    .master_print,
+    .party_action,
+    .thekedar_action,
+     .dataTables_length,
+     .dataTables_filter,
+     .dataTables_info,
+     .dataTables_paginate,
+     .dispare{
+        display: none !important;
+    }
+    .party_table{
+        margin-left: 0px !important;
+    }
+}
