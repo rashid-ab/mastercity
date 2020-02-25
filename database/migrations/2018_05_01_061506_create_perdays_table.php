@@ -15,6 +15,7 @@ class CreatePerdaysTable extends Migration
     {
         Schema::create('perdays', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('cd_id')->nullable();
             $table->string('PlotNo');
             $table->string('Items');
             $table->string('Quantity')->nullable();

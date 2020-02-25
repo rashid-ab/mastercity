@@ -1,91 +1,57 @@
 @extends('layouts.app')
-@section('title','Perday')
+@section('title','CD')
 @section('content')
-<select class="form-control forms_selection" style="width: 150px;" >
-    <option  value="Perday-Form" >Create Form</option>
-     <option  value="Party-Form" >Enry Form</option>
+<select class="form-control forms_selections" style="width: 150px;" >
+        <option value="client-form" >Create Form</option>
+        <option  value="purchase-form" >Purchase Form</option>
 </select>
-    <!-- Party Form -->
-    <div class="party-form">
+    <!-- Client Form -->
+<div class="client-form">
         <div class="signup-form">
-    <form class="form-horizontal1" id="party_form" action=""  method="post" role="form">
-        <h4><b>Party Record</b>
+    <form class="client_form" id="client_form" action=""  method="post" role="form">
+        <h4><b>Client Record</b>
         </h4>
         <hr>
                {{csrf_field()}}  
-               
     <div class="form-group">
-        <input type="text" list="plot" class="form-control pltno" name="plot" placeholder="Plot No" autocomplete="off" required>
-        <datalist id="plot"  autocomplete="off">
-		    @foreach($display as $disss)
-		  		<option value="{{$disss->Plot}}">{{$disss->Plot}}</option>
-		  	@endforeach
-		</datalist>
+        <input placeholder="Name" name='client_name'  class="form-control client_name" autocomplete="off" required>
     </div>
     <div class="form-group">
-        <input placeholder="Name" name='name'  class="form-control item" autocomplete="off" required>
+        <input type="text" class="form-control shop_name" name="shop_name" placeholder="Shop Name" >
     </div>
     <div class="form-group">
-        <input type="text" class="form-control company_name" name="shop_name" placeholder="Shop Name" >
+        <input type="text" class="form-control mobile_no" name="mobile_number" placeholder="Mobile Number" >
     </div>
-    <div class="form-group">
-        <input type="text" class="form-control mobile_no" name="mobile_no" placeholder="Mobile Number" >
-    </div>
-    
-    </div>      
     <div class="form-group">
         <input type="submit" style="background-color: #f50000; color:white;" class="btn" name="addcreate" value="Submit">
     </div>
 
     </form>
-    <form class="edit_party" action="" style="display: none"  method="post" role="form">
-        <h4><b>Party Record</b>
-         {{-- <select class="amou">
-            <option>Total</option>
-            <option>Amount</option>
-          </select> --}}
+    <form class="edit_client" action="" style="display: none"  method="post" role="form">
+        <h4><b>Update Client Record</b>
         </h4>
-        
         <hr>
                {{csrf_field()}}  
-               
-                <div class="form-group">
-            <input type="text" list="plot" class="form-control update_pltno" name="update_plot" placeholder="Plot No" autocomplete="off" required>
-            <input type="hidden"  class="form-control update_id" name="update_id" placeholder="Plot No" autocomplete="off" required>
-            <datalist id="plot"  autocomplete="off">
-    @foreach($display as $disss)
-  <option value="{{$disss->Plot}}">{{$disss->Plot}}</option>
-  @endforeach
-</datalist>
+        <div class="form-group">
+            <input type="hidden"  class="form-control update_id" name="update_id" placeholder="id" autocomplete="off" required>
         </div>
         <div class="form-group">
-            <input placeholder="Party update_Name" name='update_client_name'  class="form-control update_client_name" autocomplete="off" required>
+            <input placeholder="Client Name" name='update_client_name'  class="form-control update_client_name" autocomplete="off" required>
         </div>
         <div class="form-group">
-            <input type="text" class="form-control update_payment_recieve" name="update_payment_recieve" placeholder="Payment Recieve" >
+            <input type="text" class="form-control update_shop_name" name="update_shop_name" placeholder="Company Name" >
         </div>
         <div class="form-group">
-            <input type="text" class="form-control update_total_payment" name="update_total_payment" placeholder="Total Payment" >
+            <input type="text" class="form-control update_mobile_no" name="update_mobile_number" placeholder="Mobile Number" >
         </div>
         <div class="form-group">
-            <input type="text" class="form-control update_donation" value="5" name="update_donation" placeholder="Donation" >
-        </div>
-        <div class="form-group">
-            <input type="text" class="form-control update_reason" name="update_reason" placeholder="Reason" >
-        </div>  
-        <div class="form-group">
-            <input type="text" class="form-control update_feedback" name="update_feedback" placeholder="Feed Back" >
-        </div>
-      <div class="form-group">
-            <input type="text" class="form-control update_date" name="update_date" placeholder="Date"  required>
-        </div> 
-        <div class="form-group">
-            <input type="submit" style="background-color: #f50000; color:white;" class="btn" name="addparty" value="Submit">
+            <input type="submit" style="background-color: #f50000; width: 100%;color:white;" class="btn" name="addparty" value="Submit">
+            <input style="background-color: #f50000; width: 100%;margin-top:5px;color:white;" class="btn" name="addparty" value="Cancel">
         </div>
 
     </form>
     </div>
-     <div class="table-wrapper party_table" style="width: 1073px !important; ">            
+     <div class="table-wrapper client_table" style="width: 1073px !important; ">            
             <div class="table-title">
                <div class="">
                         <div class="search-box">
@@ -93,14 +59,8 @@
                                 <form action="" class="party_search" method="post" accept-charset="utf-8">
                                     {{ csrf_field() }}
                                     <div class="form-group" style="float: left;">
-                                <input type="text" list="plots" class="form-control perday_search" name="plot_search" placeholder="Plot Search&hellip;" autocomplete="off">
-                              <datalist id="plots"  autocomplete="off">
-                                @foreach($display as $diss)
-                              <option value="{{$diss->Plot}}">{{$diss->Plot}}</option>
-                              @endforeach
-                            </datalist>
-                                <input type="text" class="form-control perday_search" name="client_name" placeholder="Name Search&hellip;"></div><div class="form-group" style="float: left;"><input type="submit" class="btn btn-danger" style="background: #f50000;border-radius: 5px;"  />
-                                  {{-- <span class="party_span" style="margin-left: 40px; display:none">Total:</span><span class="party_total"></span> --}}
+                                <input type="text" class="form-control client_search" name="client_name" placeholder="Name Search&hellip;"></div><div class="form-group" style="float: left;"><input type="submit" class="btn btn-danger" style="background: #f50000;border-radius: 5px;"  />
+                                  
                                 </div>
                                 </form>
                             </div>
@@ -109,50 +69,44 @@
                 </div>
         
             <span class="party_header_total" style="margin-left: 340px;"></span>
-            <table class="table table-bordered party_table" id="party_table">
+            <table class="table table-bordered client_table" id="client_table">
                 <thead>
                     <tr class="table_bottom">
                         <th>ID</th>
-                        <th>PlotNo</th>
-                        <th>Party Name</th>
-                        <th>Payment Recieve</th>
-                        <th>Donation</th>
-                        <th style="width: 250px;">Reason</th>
-                        <th>Feed Back</th>
-                        <th>Total Amount</th>
-                        <th>Date</th>
+                        <th>Client Name</th>
+                        <th>Shop Name</th>
+                        <th>Mobile Number</th>
                         <th class="dispare">Action</th>
-                        
                     </tr>
                 </thead>
-                <tbody class="perdaytable1">
+                <tbody class="client_body">
                 </tbody>
-                
-     <tfoot>
-        <tr>
-            <td><button class='btn btn-print party_print' style="color: white; display:none">Print</button></td>
-            <td></td>
-            <td></td>
-            <td class="recieve_total"></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td id="party_total"></td>
-            <td class="party_total"></td>
-            <td class="party_hids dispare"></td>
-        </tr>
-    </tfoot>    
-        </table>
+                <!-- <tfoot>
+                    <tr>
+                        <td><button class='btn btn-print party_print' style="color: white; display:none">Print</button></td>
+                        <td></td>
+                        <td></td>
+                        <td class="recieve_total"></td>
+                        <td></td>
+                    </tr>
+                </tfoot>   -->  
+            </table>
        
     </div>
 
     </div>
-<!-- Perday Form -->
-<div class="perday-form">
+<!-- Purchase Form -->
+<div class="purchase-form" style="display: none">
 <div class="signup-form">
     <form class="form-horizontal" id="perday_form" action=""  method="post" role="form">
-        <h4><b>Add Perday Record</b></h4>
-        	<hr>
+        <h4><b>Purchase Record</b></h4>
+            <div class="form-group">
+                  <select class="amou form-control">
+                    <option>Purchase</option>
+                    <option>Payment</option>
+                  </select>
+            </div>
+        	   <hr>
                {{csrf_field()}}  
             <div class="form-group">
             <input type="text" list="plots" class="form-control pltno we" name="PlotNo" placeholder="Plot No" autocomplete="off">
@@ -185,7 +139,7 @@
             <input type="submit" class="btn adp submit" style="background-color: #f50000; color: white;" name="addperday" value="Submit">
         </div>
     </form>
-    <form class="edit_perday" action="" style="display: none"  method="post" role="form">
+    <form class="edit_client" action="" style="display: none"  method="post" role="form">
         <h4><b>Update Perday Record</b></h4>
         
         <hr>
@@ -304,247 +258,26 @@
     </div>
 
     </div>
+ 
     
-
-
-
-    <!-- Thekedar Form -->
-
-    <div class="thekedar-form">
-        <div class="signup-form">
-    <form class="thekedar-forms" action=""  method="post" role="form">
-        <h4><b>Thekedar Record</b>
-         <select class="amou_t">
-            <option>Total</option>
-            <option>Amount</option>
-          </select>
-        </h4>
-        
-        <hr>
-               {{csrf_field()}}  
-               
-                <div class="form-group">
-            <input type="text" list="plot" class="form-control pltno" name="plots" placeholder="Plot No" required>
-            
-        </div>
-        <div class="form-group">
-            <input placeholder="Thekedar Name" name='thekedar_name' class="form-control item" required>
-        </div>
-        <div class="form-group">
-            <input type="text" class="form-control amou_rec" name="payments_recieve" placeholder="Payment Recieve" >
-        </div>
-        <div class="form-group">
-            <input type="text" class="form-control tot_amo" name="totals_payment" placeholder="Total Payment" >
-        </div>    
-      <div class="form-group">
-            <input type="date" class="form-control pricee datee" name="dates" placeholder="Date"  required>
-        </div> 
-        <div class="form-group">
-            <input type="submit" style="background-color: #f50000; color:white;" class="btn" name="addthekedar" value="Submit">
-        </div>
-
-    </form>
-
-    <form class="edit_thekedar" action="" style="display: none" method="post" role="form">
-        <h4><b>Update Thekedar Record</b>
-         {{-- <select class="amou_t">
-            <option>Total</option>
-            <option>Amount</option>
-          </select> --}}
-        </h4>
-        
-        <hr>
-               {{csrf_field()}}  
-               
-                <div class="form-group">
-            <input type="text" list="plot" class="form-control update_pltno" name="update_plots" placeholder="Plot No" required>
-            <input type="hidden"  class="form-control update_id" name="update_id" placeholder="Plot No" required>
-            
-        </div>
-        <div class="form-group">
-            <input placeholder="Thekedar Name" name='update_thekedar_name' class="form-control update_thekedar_name" required>
-        </div>
-        <div class="form-group">
-            <input type="text" class="form-control update_payments_recieve" name="update_payments_recieve" placeholder="Payment Recieve" >
-        </div>
-        <div class="form-group">
-            <input type="text" class="form-control update_totals_payment" name="update_totals_payment" placeholder="Total Payment" >
-        </div>    
-      <div class="form-group">
-            <input type="date" class="form-control update_dates" name="update_dates" placeholder="Date"  required>
-        </div> 
-        <div class="form-group">
-            <input type="submit" style="background-color: #f50000; color:white;" class="btn" name="addthekedar" value="Submit">
-        </div>
-
-    </form>
-    </div>
-     <div class="table-wrapper">            
-            <div class="table-title">
-               <div class="">
-                        <div class="search-box">
-                            <div class="input-group" >
-                                
-                                <form action="" class="thekedar_search" method="post" accept-charset="utf-8">
-                                    {{ csrf_field() }}
-                                    <div class="form-group" style="float: left;">
-                                       <input type="text" list="plots" class="form-control perday_search" name="plot_search" placeholder="Plot Search&hellip;" autocomplete="off">
-                                        <datalist id="plots"  autocomplete="off">
-                                @foreach($display as $diss)
-                              <option value="{{$diss->Plot}}">{{$diss->Plot}}</option>
-                              @endforeach
-                            </datalist>
-                               <input type="text" class="form-control perday_search" name="thekedar_name" placeholder="Name Search&hellip;"></div><div class="form-group" style="float: left;"><input type="submit" class="btn btn-danger" style="background: #f50000;border-radius: 5px;"  />
-                                </div>
-                                 </form>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-        
-            <span class="thekedar_header_total" style="margin-left: 340px;"></span>
-            <table class="table table-bordered" id="thekedar_table">
-                <thead>
-                    <tr class="table_bottom">
-                        <th>ID</th>
-                        <th>PlotNo</th>
-                        <th>Thekedar Name</th>
-                        <th>Payment Recieve</th>
-                        <th>Total Payment</th>
-                        <th>Date</th>
-                        <th class="dispare">Action</th>
-                        
-                    </tr>
-                </thead>
-                <tbody class="perdaytable2">
-                </tbody>
-                
-
-    <tfoot>
-        <tr>
-            <td><button class='btn btn-print thekedar_print' style="color: white; display:none">Print</button></td>
-            {{-- <td><button class='btn btn-print thekedar_action' style="color: white; display:none">Action</button></td> --}}
-            <td></td>
-            <td></td>
-            <td id="total_recieve"></td>
-            <td id="total_payment"></td>
-            <td></td>
-            <td class="party_hids dispare"></td>
-        </tr>
-    </tfoot>   
-        </table>
-        
-    </div>
-
-    </div>
-
-    {{-- Office Module --}}
-
-    <div class="office-form" style="display: none">
-        <div class="signup-form">
-    <form class="office-forms" action=""  method="post" role="form">
-        <h4><b>Office Record</b>
-        
-        </h4>
-        
-        <hr>
-               {{csrf_field()}}  
-               
-                <div class="form-group">
-            <input type="text" class="form-control expense" name="expense" placeholder="Expense" required>
-            
-        </div>
-        <div class="form-group">
-            <input placeholder="Amount" name='amount' class="form-control amount" required>
-        </div>
-       <div class="form-group">
-            <input type="date" class="form-control date datee" name="dates" placeholder="Date" required >
-        </div> 
-        <div class="form-group">
-            <input type="submit" style="background-color: #f50000; color:white;" class="btn" name="addthekedar" value="Submit">
-        </div>
-
-    </form>
-
-    <form class="edit_office" action="" style="display: none"  method="post" role="form">
-        <h4><b>Office Record</b>
-        
-        </h4>
-        
-        <hr>
-               {{csrf_field()}}  
-               
-                <div class="form-group">
-            <input type="text" class="form-control update_expense" name="update_expense" placeholder="Expense" required>
-            <input type="hidden" class="form-control update_id" name="update_id" placeholder="Expense" required>
-            
-        </div>
-        <div class="form-group">
-            <input placeholder="Amount" name='update_amount' class="form-control update_amount" required>
-        </div>
-       <div class="form-group">
-            <input type="date" class="form-control update_dates" name="update_dates" placeholder="Date" required >
-        </div> 
-        <div class="form-group">
-            <input type="submit" style="background-color: #f50000; color:white;" class="btn" name="addthekedar" value="Submit">
-        </div>
-
-    </form>
-    </div>
-     <div class="table-wrapper">            
-            <div class="table-title">
-               <div class="">
-                        <div class="search-box">
-                            <div class="input-group" >
-                                
-                                <form action="" class="office_search" method="post" accept-charset="utf-8">
-                                    {{ csrf_field() }}
-                                    <div class="form-group" style="float: left;">
-                                      <input type="date" class="form-control perday_search datee" name="dates" placeholder="Date&hellip;"></div>
-                               <div class="form-group" style="float: left;">
-                                <input type="submit" class="btn btn-danger" style="background: #f50000;border-radius: 5px;"  />
-                                </div>
-                                 </form>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-        
-            <span class="office_header_total" style="margin-left: 340px;"></span>
-            <table class="table table-bordered" id="office_table">
-                <thead>
-                    <tr class="table_bottom">
-                        <th>ID</th>
-                        <th>Expense</th>
-                        <th>Amount</th>
-                        <th>Date</th>
-                        <th class="party_hids dispare">Action</th>
-                        
-                    </tr>
-                </thead>
-                <tbody class="office_perdaytable2">
-                </tbody>
-                <tbody class="office_perdaytable21">
-                </tbody>
-
-    <tfoot>
-        <tr>
-            <td><button class='btn btn-print office_print' style="color: white; display:none">Print</button></td>
-            <td><button class='btn btn-print thekedar_action' style="color: white; display:none">Action</button></td>
-            <td></td>
-            <td></td>
-            <td></td>
-           
-        </tr>
-    </tfoot>    
-         </table>
-        
-    </div>
-
     </div>
   
     <script type="text/javascript">
 $(document).ready(function(){
+    // $('.forms_selection').val('Create Form');
+    $('.forms_selections').on('change', function() {
+
+        $value = $(this).val();
+        if ($value == "client-form") {
+            $('.purchase-form').hide();
+            $('.client-form').fadeIn(500);
+        }
+
+        if ($value == "purchase-form") {
+            $('.client-form').hide();
+            $('.purchase-form').fadeIn(500);
+        }
+    });
 $('.perday_inputs').change(function(e){
         $('.dummy_perday_search').val($('.perday_inputs').val());
         $( "#get_items").delay(100).submit();
@@ -574,61 +307,51 @@ var today = now.getFullYear()+"-"+(month)+"-"+(day) ;
 
 // $('#datePicker').val(today);
 $('.datee').val(today);
-  $( ".form-horizontal").submit(function(e){
+  $( "#client_form").submit(function(e){
     e.preventDefault();
-    $('#perday_tbl').DataTable().destroy();
+    $('#client_table').DataTable().destroy();
   // var aa=parseInt($('.var').val());
   // var aaa=parseInt($('.varr').val());
   //    var aaaa=aa+aaa;
   $.ajax({
         type:'post',
 
-        url:'home',
+        url:'add_client',
          dataType:'json',
         data:$(this).serialize(),
         success:function(data){
-          if(data=='empty'){
-                    toastr.warning('Plot Not Exist');
+          if(data=='already_exist'){
+                    toastr.warning('Client Already Exist');
                     return false;
                 }
-                if(data=='item_empty'){
-                    toastr.warning('Item Not Exist');
-                    return false;
-                }
-
         $('.perday_searchs').html('');
         $('.header_total').hide();
         $('.perdaytables').addClass('single_data');
         $('.perdaytables').removeClass('perday_searchs');
-   
-          if(data.errors){
+        if(data.errors){
             alert('Errors')
           }
  else{
-
-   
-      $('.perdaytables').append(
-        '<tr>'+
-        '<td class=id'+data.suc.id+'>'+data.suc.id+'</td>'+
-                         '<td class=PlotNo'+data.suc.id+'>'+data.suc.PlotNo+'</td>'+
-                         '<td class=Items'+data.suc.id+'>'+data.suc.Items+'</td>'+
-                         '<td class=Quantity'+data.suc.id+'>'+data.suc.Quantity+'</td>'+
-                         '<td class=Date'+data.suc.id+'>'+data.suc.Date+'</td>'+
-                         '<td class="Price'+data.suc.id+'">'+data.suc.Price+'</td>'+
+      $('.client_body').append(
+                '<tr id=row'+data.suc.id+'>'+
+                         '<td class=id'+data.suc.id+'>'+data.suc.id+'</td>'+
+                         '<td class=client_name'+data.suc.id+'>'+data.suc.client_name+'</td>'+
+                         '<td class=shop_name'+data.suc.id+'>'+data.suc.shop_name+'</td>'+
+                         '<td class=mobile_no'+data.suc.id+'>'+data.suc.mobile_number+'</td>'+
                          '<td class="perday_hid dispare">'+
-                           '<a href="home/shows/'+data.suc.id+'" class="delete"'+
-                            'title="Show"'+
-                          'data-toggle="tooltip"><i'+ 
-                          ' class="fas fa-eye-alt"></i></a>'+
-                          '<a  class="editperday"'+
-                          'title="Edit"'+
+                          //  '<a href="home/shows/'+data.suc.id+'" class="delete"'+
+                          //   'title="Show"'+
+                          // 'data-toggle="tooltip"><i'+ 
+                          // ' class="fas fa-eye-alt"></i></a>'+
+                          '<a  class=editclient'+data.suc.id+' title="Edit"'+
                           'data-toggle="tooltip"><i'+ 
                           ' class="fas fa-pencil-alt"></i></a>'+
-                          '<a href="home/deletes/'+data.suc.id+'" class="delete"'+
-                           'title="Delete"'+
+                          '<a class=delete_client'+data.suc.id+
+                           ' title="Delete"'+
                           'data-toggle="tooltip"><i class="fas fa-trash">'+
                           '</i></a>'+
-                          '</td></tr>'
+                          '</td>'+
+                '</tr>'
         );
         toastr.success('Success');
         $('#search_total').html('');
@@ -644,57 +367,50 @@ $('.datee').val(today);
         var asx=assd+asd;
         $('#add_total').html(asx);
         }
-       }$('#perday_tbl').DataTable();
-       $('.editperday').click(function() {
-                        // alert(val.Date);return false;s
-                        $('#perday_form').hide();
-                        $('.edit_perday').show();
+       }
+       $('#perday_tbl').DataTable();
+       $('.editclient'+data.suc.id).click(function() {
+                        // alert('val.Date');return false;
+                        $('#client_form').hide();
+                        $('.edit_client').show();
+                        console.log(data.suc.client_name)
                         $('.update_id').val(data.suc.id);
-                        $('.update_Items').val(data.suc.Items);
-                        $('.update_pltno').val(data.suc.PlotNo);
-                        $('.update_quantityy').val(data.suc.Quantity);
-                        $('.update_datee').val(data.suc.Date);
-                        $('.update_pricee').val(data.suc.Price);
-                        $('.id'+val.id).css('background-color','yellow');
-                        $('.PlotNo'+data.data.id).css('background-color','yellow');
-                        $('.Items'+data.data.id).css('background-color','yellow');
-                        $('.Quantity'+data.data.id).css('background-color','yellow');
-                        $('.Date'+data.data.id).css('background-color','yellow');
-                        $('.Price'+data.data.id).css('background-color','yellow');
+                        $('.update_client_name').val(data.suc.client_name);
+                        $('.update_shop_name').val(data.suc.shop_name);
+                        $('.update_mobile_no').val(data.suc.mobile_number);
                     });
-       
+       $('.delete_client'+data.suc.id).click(function(e){
+        e.preventDefault();
+        $('#row'+data.suc.id).fadeOut(200);
+       $.ajax({
+            type:'get',
+            url:'delete_client/'+data.suc.id,
+            dataType:'json',
+            success:function(data){
+            toastr.warning('Delete Successfully');
 
-
+        }
+        });
+   });
         },
-         
       });
     });
   });
-      $( ".edit_perday").submit(function(e){
+      $( ".edit_client").submit(function(e){
     e.preventDefault();
      $.ajax({
         type:'post',
-
-        url:'perday_update',
+        url:'client_update',
         dataType:'json',
         data:$(this).serialize(),
         success:function(data){
-          if(data=='empty'){
-                    toastr.warning('Plot Not Exist');
+          if(data=='already_exist'){
+                    toastr.warning('Client Name Already Exist');
                     return false;
                 }
-          if(data=='item_empty'){
-                    toastr.warning('Item Not Exist');
-                    return false;
-                }
-            $('.PlotNo'+data.data.id).html(data.data.PlotNo);
-            $('.Items'+data.data.id).html(data.data.Items);
-            $('.Quantity'+data.data.id).html(data.data.Quantity);
-            $('.Date'+data.data.id).html(data.data.Date);
-            $('.Price'+data.data.id).html(data.data.Price);
-            $('.header_total').html('Total:'+data.total);
-            $('#add_total').html('Total:'+data.total);
-            $('td').css('background-color','white');
+            $('.client_name'+data.data.id).html(data.data.client_name);
+            $('.shop_name'+data.data.id).html(data.data.shop_name);
+            $('.mobile_no'+data.data.id).html(data.data.mobile_number);
             toastr.success('Updated');
         },
         

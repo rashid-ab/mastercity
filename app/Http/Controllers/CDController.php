@@ -6,7 +6,7 @@ use App\CD;
 use App\Plot;
 use App\Item;
 use App\Perday;
-use App\Party;
+use App\Client;
 use DB;
 use Illuminate\Http\Request;
 
@@ -21,7 +21,6 @@ class CDController extends Controller
     {
         $pm=Perday::orderBy('Price','DESC')->get();
         $display=Plot::get();
-        $party=Party::all();
         $items=Item::all();
         $perday=Perday::select('Items')->groupBy('Items')->get();
         $dataa=Item::select('Items')->get();
@@ -30,7 +29,7 @@ class CDController extends Controller
         $total_pay=DB::table('parties')->sum('total_payment');
         $total_rec=DB::table('parties')->sum('payment_recieve');
         $act_total=$total_pay-$total_rec;
-      return view('CD.index',compact('perday','dataa','display','party','reset','total','total_pay','act_total','items'));
+      return view('CD.index',compact('perday','dataa','display','reset','total','total_pay','act_total','items'));
     }
     /**
      * Show the form for creating a new resource.
@@ -48,9 +47,42 @@ class CDController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function add_client(Request $request)
     {
-        //
+        $check_client=Client::where('client_name',$request->client_name)->first();
+        if(!is_null($check_client)){
+            return response()->json('already_exist');
+        }
+        else{
+            $data=Client::create([
+                    'client_name'       => $request->client_name,
+                    'shop_name'         => $request->shop_name,
+                    'mobile_number'     => $request->mobile_number,
+            ]);
+            return response()->json(['suc'=>$data]);
+        }
+    } 
+    public function client_update(Request $request)
+    {
+        $check_client=Client::where('id',$request->update_client_name)->first();
+        if(!is_null($check_client)){
+            return response()->json('already_exist');
+        }
+        else{
+            Client::find($request->update_id)->update([
+                    'client_name'       => $request->update_client_name,
+                    'shop_name'         => $request->update_shop_name,
+                    'mobile_number'     => $request->update_mobile_number,
+            ]);
+            $data=Client::find($request->update_id);
+            return response()->json(['data'=>$data]);
+        }
+    } 
+    public function delete_client($id)
+    {
+            Client::find($id)->delete();
+            return response()->json('Delete');
+        
     }
 
     /**

@@ -677,7 +677,7 @@ $('.datee').val(today);
         }
        }$('#perday_tbl').DataTable();
        $('.editperday').click(function() {
-                        // alert(val.Date);return false;s
+                        console.log(data.suc.id)
                         $('#perday_form').hide();
                         $('.edit_perday').show();
                         $('.update_id').val(data.suc.id);

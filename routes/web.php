@@ -4,6 +4,12 @@ Route::group(['middleware'=>'web'],function(){
 // Route::get('/', function () {
 //     return view('auth.login');
 // });
+Route::get('cd','CDController@index');
+Route::post('add_client','CDController@add_client');
+Route::get('delete_client/{id}','CDController@delete_client');
+Route::post('client_update','CDController@client_update');
+
+
 Route::post('home','HomeController@store');
 Route::post('home1','HomeController@party');
 Route::post('search','HomeController@search');
@@ -55,9 +61,11 @@ Route::post('get_item','HomeController@add_item');
 Route::get('edit_item/{id}','HomeController@edit_item');
 Route::post('edit_item/{id}','HomeController@update_item');
 Route::post('get_itemss','HomeController@get_items');
-});
 
-Route::get('cd','CDController@index');
+
+
+
+});
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+// Route::get('/home', 'HomeController@index')->name('home');

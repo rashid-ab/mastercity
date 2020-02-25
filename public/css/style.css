@@ -307,6 +307,10 @@ table.table td i {
     margin-right: auto;
     margin-left: auto;
 }
+.forms_selections {
+    margin-right: auto;
+    margin-left: auto;
+}
 
 .party-form,
 .perday-form {
@@ -381,6 +385,9 @@ table.table td i {
         -webkit-print-color-adjust: exact;
     }
     .forms_selection {
+        display: none;
+    }
+    .forms_selections {
         display: none;
     }
     .signup-form {
