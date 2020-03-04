@@ -7,6 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 class Perday extends Model
 {
     protected $fillable=[
-           'PlotNo','Items','Quantity','Date','Price'
+           'PlotNo','cd_id','Items','Quantity','Date','Price'
    ];
 }

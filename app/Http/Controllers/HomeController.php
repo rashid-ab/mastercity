@@ -11,6 +11,7 @@ use App\Expense;
 use Carbon\Carbon;
 use Session;
 use App\Party;
+use App\Purchase;
 use Validator;
 use App\Thekedar;
 class HomeController extends Controller
@@ -293,6 +294,7 @@ public function shows($id)
     public function perday_update(Request $request)
     {
       $plot=Plot::where('Plot',$request->update_PlotNo)->first();
+      $plot_info=Perday::where('id',$request->update_id)->first();
       if(is_null($plot)){
         return response()->json('empty');
       }
@@ -308,6 +310,15 @@ public function shows($id)
           'Date'=>$request->update_Date,
           'Price'=>$request->update_Price,
         ]);
+        if($plot_info->cd_id!='Null' || !is_null($plot->cd_id)){
+          Purchase::where('id',$plot_info->cd_id)->update([
+          'PlotNo'=>$request->update_PlotNo,
+          'Items'=>$request->update_Items,
+          'Quantity'=>$request->update_Quantity,
+          'Date'=>$request->update_Date,
+          'credit'=>$request->update_Price,
+        ]);
+        }
         $total=Perday::where('PlotNo',$request->update_PlotNo)->sum('Price');
         $data=Perday::where('id',$request->update_id)->first();
         return response()->json(['data'=>$data,'total'=>$total]);

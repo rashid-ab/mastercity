@@ -8,6 +8,12 @@ Route::get('cd','CDController@index');
 Route::post('add_client','CDController@add_client');
 Route::get('delete_client/{id}','CDController@delete_client');
 Route::post('client_update','CDController@client_update');
+Route::post('add_cd','CDController@add_cd');
+Route::get('get_clients','CDController@get_clients');
+Route::get('delete_cd/{id}','CDController@delete_cd');
+Route::post('cd_update','CDController@cd_update');
+Route::post('client_search','CDController@client_search');
+Route::post('cd_search','CDController@cd_search');
 
 
 Route::post('home','HomeController@store');

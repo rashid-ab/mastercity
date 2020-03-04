@@ -15,13 +15,14 @@ class CreatePurchasesTable extends Migration
     {
         Schema::create('purchases', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name')->nullable();
+            $table->string('client_name')->nullable();
             $table->string('PlotNo');
             $table->string('Items')->nullable();
             $table->string('Quantity')->nullable();
             $table->string('Date');
             $table->integer('credit')->nullable();
             $table->integer('debit')->nullable();
+            $table->integer('balance')->nullable();
             $table->timestamps();
         });
     }

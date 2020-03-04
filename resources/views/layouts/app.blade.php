@@ -63,7 +63,7 @@
                             <!--<li><a href="{{ route('register') }}">Register</a></li>-->
                         @else
 
-                          <li class="active"><a href="{{url('/home')}}">Perday</a></li>
+                          <li class="active"><a href="{{url('/')}}">Perday</a></li>
                           <li><a href="{{url('/items')}}">Plots</a></li>
                           <li><a href="{{url('/get_item')}}">Items</a></li>
                           <li><a href="{{url('/master')}}">Master</a></li>
@@ -98,7 +98,7 @@
     </div>
 
     <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}"></script>
+    <!-- <script src="{{ asset('js/app.js') }}"></script> -->
     <script src="{{ asset('public/js/ajax.js') }}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
     
