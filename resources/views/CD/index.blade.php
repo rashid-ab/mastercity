@@ -1,7 +1,8 @@
 @extends('layouts.app')
 @section('title','CD')
 @section('content')
-<select class="form-control forms_selections" style="width: 150px;" >
+<select class="form-control forms_selections" style="width: 150px;margin-right: auto;
+    margin-left: auto;" >
         <option value="client-form" >Create Form</option>
         <option  value="purchase-form" >Purchase Form</option>
 </select>
@@ -109,7 +110,7 @@
                         <option value="Payment">Payment</option>
                   </select>
             </div>
-        	   <hr>
+               <hr>
                {{csrf_field()}} 
         <div class="form-group">
             <input type="text" list="cd_client_name" class="form-control client_name" name="client_name" placeholder="Client Name" autocomplete="off" required>
@@ -119,26 +120,26 @@
         <div class="form-group">
             <input type="text" list="plots" class="form-control plotno" name="PlotNo" placeholder="Plot No" autocomplete="off">
             <datalist id="plots"  autocomplete="off">
-    			    @foreach($display as $diss)
-    			  <option value="{{$diss->Plot}}">{{$diss->Plot}}</option>
-    			  @endforeach
-    		</datalist>
+                    @foreach($display as $diss)
+                  <option value="{{$diss->Plot}}">{{$diss->Plot}}</option>
+                  @endforeach
+            </datalist>
         </div>
         <div class="form-group">
             <input placeholder="Items" name='Items' list="items" class="form-control item">
-			<datalist id="items" >
-			   @foreach($items as $item)
-					<option value="{{ $item->Items }}">{{ $item->Items }}</option>
-			   @endforeach
-			</datalist>
+            <datalist id="items" >
+               @foreach($items as $item)
+                    <option value="{{ $item->Items }}">{{ $item->Items }}</option>
+               @endforeach
+            </datalist>
         </div>
-  	    <div class="form-group">
+        <div class="form-group">
             <input type="text" class="form-control quantity" name="Quantity" placeholder="Quantity" >
         </div>
         <div class="form-group">
             <input type="date" class="form-control datee" name="Date" placeholder="Date" required>
         </div>    
-	    <div class="form-group">
+        <div class="form-group">
             <input type="text" class="form-control pricee" name="Price" placeholder="Price"  required>
         </div> 
         <div class="form-group">
@@ -158,27 +159,27 @@
             <input type="text" list="plots" class="form-control update_PlotNo we" name="update_PlotNo" placeholder="Plot No" autocomplete="off">
             <input type="hidden" class="form-control update_id" name="update_id" placeholder="Plot No" autocomplete="off">
             <datalist id="plots"  autocomplete="off">
-			    @foreach($display as $diss)
-			  		<option value="{{$diss->Plot}}">{{$diss->Plot}}</option>
-			  	@endforeach
-			</datalist>
+                @foreach($display as $diss)
+                    <option value="{{$diss->Plot}}">{{$diss->Plot}}</option>
+                @endforeach
+            </datalist>
         </div>
         <div class="form-group">
             <input placeholder="Items" name='update_Items' list="items" class="form-control update_Items">
 
-			<datalist id="items" >
-			   @foreach($items as $item)
-			   		<option value="{{ $item->Items }}">{{ $item->Items }}</option>
-			   @endforeach
-			</datalist>
+            <datalist id="items" >
+               @foreach($items as $item)
+                    <option value="{{ $item->Items }}">{{ $item->Items }}</option>
+               @endforeach
+            </datalist>
         </div>
-        	<div class="form-group">
+            <div class="form-group">
             <input type="text" class="form-control update_Quantity" name="update_Quantity" placeholder="Quantity" >
         </div>
         <div class="form-group">
             <input type="text" class="form-control update_Date" name="update_Date" placeholder="Date" required>
         </div>    
-      	<div class="form-group">
+        <div class="form-group">
             <input type="text" class="form-control update_Price" name="update_Price" placeholder="Price"  required>
         </div> 
         
@@ -655,7 +656,7 @@ $( "#get_items").submit(function(e){
                           '<a  class=editclient'+data.suc.id+' title="Edit"'+
                           'data-toggle="tooltip"><i'+ 
                           ' class="fas fa-pencil-alt"></i></a>'+
-                          '<a class=delete_cd'+data.suc.id+
+                          '<a class=delete_client'+data.suc.id+
                            ' title="Delete"'+
                           'data-toggle="tooltip"><i class="fas fa-trash">'+
                           '</i></a>'+
@@ -808,7 +809,7 @@ $( ".client_search").submit(function(e){
                           '<a  class=editclient'+data.id+' title="Edit"'+
                           'data-toggle="tooltip"><i'+ 
                           ' class="fas fa-pencil-alt"></i></a>'+
-                          '<a class=delete_cd'+data.id+
+                          '<a class=delete_client'+data.id+
                            ' title="Delete"'+
                           'data-toggle="tooltip"><i class="fas fa-trash">'+
                           '</i></a>'+
@@ -828,12 +829,12 @@ $( ".client_search").submit(function(e){
                         $('.update_shop_name').val(data.shop_name);
                         $('.update_mobile_no').val(data.mobile_number);
                     });
-       $('.delete_client'+data.suc.id).click(function(e){
+       $('.delete_client'+data.id).click(function(e){
         e.preventDefault();
-        $('#row'+data.suc.id).fadeOut(200);
+        $('#row'+data.id).fadeOut(200);
        $.ajax({
             type:'get',
-            url:'delete_client/'+data.suc.id,
+            url:'delete_client/'+data.id,
             dataType:'json',
             success:function(data){
             toastr.warning('Delete Successfully');
