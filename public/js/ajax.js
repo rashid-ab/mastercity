@@ -113,7 +113,6 @@ $(document).ready(function() {
     });
 
     $('.per_search').submit(function(e) {
-
         e.preventDefault();
 
         $('#perday_tbl').DataTable().destroy();
@@ -132,7 +131,11 @@ $(document).ready(function() {
         $('.perdaytables').addClass('perday_searchs');
         $('.perdaytables').removeClass('single_data');
                 $.each(data.success, function(key, val) {
-                    $('.perdaytables').append(
+                     // console.log('asds');
+                    if(val.cd_id==undefined)
+                    {
+                        // console.log('asd');
+                        $('.perdaytables').append(
                         '<tr>' +
                         '<td class=id'+val.id+'>' + val.id + '</td>' +
                         '<td class=PlotNo'+val.id+'>' + val.PlotNo + '</td>' +
@@ -154,6 +157,53 @@ $(document).ready(function() {
                         '</td></tr>'
 
                     );
+                    }
+                    else{
+                        $('.perdaytables').append(
+                        '<tr>' +
+                        '<td class=id'+val.id+'>' + val.id + '</td>' +
+                        '<td class=PlotNo'+val.id+'>' + val.PlotNo + '</td>' +
+                        '<td class=Items'+val.id+'>' + val.Items + '</td>' +
+                        '<td class=Quantity'+val.id+'>' + val.Quantity + '</td>' +
+                        '<td class=Date'+val.id+'>' + val.Date + '</td>' +
+                        '<td class=Price'+val.id+'>' + val.Price + '</td>' +
+                        '<td class"perday_hid dispare">' +
+                        // '<a href="home/show/' + val.id + '" class="delete" title="Show"' +
+                        // 'data-toggle="tooltip"><i class="fas fa-eye">' +
+                        // '</i></a>' +
+                        // '<a  class="editperday' + val.id + '" title="Edit"' +
+                        // 'data-toggle="tooltip"><i' +
+                        // ' class="fas fa-pencil-alt"></i></a>' +
+                        // '<a href="home/delete/' + val.id + '" class="delete" title="Delete"' +
+                        // 'data-toggle="tooltip"><i class="fas fa-trash">' +
+                        // '</i></a>' +
+
+                        '</td></tr>'
+
+                    );
+                    }
+                    // $('.perdaytables').append(
+                    //     '<tr>' +
+                    //     '<td class=id'+val.id+'>' + val.id + '</td>' +
+                    //     '<td class=PlotNo'+val.id+'>' + val.PlotNo + '</td>' +
+                    //     '<td class=Items'+val.id+'>' + val.Items + '</td>' +
+                    //     '<td class=Quantity'+val.id+'>' + val.Quantity + '</td>' +
+                    //     '<td class=Date'+val.id+'>' + val.Date + '</td>' +
+                    //     '<td class=Price'+val.id+'>' + val.Price + '</td>' +
+                    //     '<td class"perday_hid dispare">' +
+                    //     '<a href="home/show/' + val.id + '" class="delete" title="Show"' +
+                    //     'data-toggle="tooltip"><i class="fas fa-eye">' +
+                    //     '</i></a>' +
+                    //     '<a  class="editperday' + val.id + '" title="Edit"' +
+                    //     'data-toggle="tooltip"><i' +
+                    //     ' class="fas fa-pencil-alt"></i></a>' +
+                    //     '<a href="home/delete/' + val.id + '" class="delete" title="Delete"' +
+                    //     'data-toggle="tooltip"><i class="fas fa-trash">' +
+                    //     '</i></a>' +
+
+                    //     '</td></tr>'
+
+                    // );
                     $('.editperday' + val.id).click(function() {
                         // alert(val.Date);return false;s
                         $('#perday_form').hide();

@@ -59,11 +59,9 @@
                                 <form action="" class="client_search" method="post" accept-charset="utf-8">
                                     {{ csrf_field() }}
                                     <div class="form-group" style="float: left;">
-                                <input type="text" list="clients_list" class="form-control client_search" name="client_name" placeholder="Name Search&hellip;"></div><div class="form-group" style="float: left;"><input type="submit" class="btn btn-danger" style="background: #f50000;border-radius: 5px;"  />
-                                <datalist id="clients_list"  autocomplete="off">
-                                    @foreach($clients as $client)
-                                        <option value="{{$client->client_name}}" autocomplete="off">{{$client->client_name}}</option>
-                                    @endforeach
+                                <input type="text" list="client_clients_list" class="form-control client_search" name="client_name" placeholder="Name Search&hellip;"></div><div class="form-group" style="float: left;"><input type="submit" class="btn btn-danger" style="background: #f50000;border-radius: 5px;"  />
+                                <datalist id="client_clients_list"  autocomplete="off">
+                                    
                                 </datalist>
                                   
                                 </div>
@@ -114,8 +112,8 @@
         	   <hr>
                {{csrf_field()}} 
         <div class="form-group">
-            <input type="text" list="client_name" class="form-control client_name" name="client_name" placeholder="Client Name" autocomplete="off">
-            <datalist id="client_name"  autocomplete="off">
+            <input type="text" list="cd_client_name" class="form-control client_name" name="client_name" placeholder="Client Name" autocomplete="off" required>
+            <datalist id="cd_client_name"  autocomplete="off">
             </datalist>
         </div> 
         <div class="form-group">
@@ -138,10 +136,10 @@
             <input type="text" class="form-control quantity" name="Quantity" placeholder="Quantity" >
         </div>
         <div class="form-group">
-            <input type="date" class="form-control datee" name="Date" placeholder="Date" >
+            <input type="date" class="form-control datee" name="Date" placeholder="Date" required>
         </div>    
 	    <div class="form-group">
-            <input type="text" class="form-control pricee" name="Price" placeholder="Price"  >
+            <input type="text" class="form-control pricee" name="Price" placeholder="Price"  required>
         </div> 
         <div class="form-group">
             <input type="submit" class="btn adp submit" style="background-color: #f50000; color: white;" name="addperday" value="Submit">
@@ -154,7 +152,7 @@
         <hr>
                {{csrf_field()}}  
         <div class="form-group">
-            <input type="text" class="form-control update_client_name" name="update_client_name" placeholder="Client Name" autocomplete="off">
+            <input type="text" class="form-control update_client_name" name="update_client_name" placeholder="Client Name" autocomplete="off" required>
         </div>
         <div class="form-group">
             <input type="text" list="plots" class="form-control update_PlotNo we" name="update_PlotNo" placeholder="Plot No" autocomplete="off">
@@ -178,10 +176,10 @@
             <input type="text" class="form-control update_Quantity" name="update_Quantity" placeholder="Quantity" >
         </div>
         <div class="form-group">
-            <input type="text" class="form-control update_Date" name="update_Date" placeholder="Date" >
+            <input type="text" class="form-control update_Date" name="update_Date" placeholder="Date" required>
         </div>    
       	<div class="form-group">
-            <input type="text" class="form-control update_Price" name="update_Price" placeholder="Price"  >
+            <input type="text" class="form-control update_Price" name="update_Price" placeholder="Price"  required>
         </div> 
         
         <div class="form-group">
@@ -204,12 +202,10 @@
                                     {{ csrf_field() }}
                                     <div class="form-group" style="float: left;">
                                         
-                                <input type="text"  list="clients_name" style="width: 204px" class="form-control items_recieve" name="client_name" placeholder="Client Name&hellip;" autocomplete="off">
+                                <input type="text"  list="client_name" style="width: 204px" class="form-control items_recieve" name="client_name" placeholder="Client Name&hellip;" autocomplete="off">
                                 
-                                <datalist id="clients_name"  autocomplete="off">
-                                     @foreach($clients as $client_name)
-                                <option value="{{$client_name->client_name}}">{{$client_name->client_name}}</option>
-                                @endforeach
+                                <datalist id="client_name"  autocomplete="off">
+                                     
                                 </datalist>
                                  </div>
                                  <div class="form-group" style="float: left;">
@@ -233,8 +229,8 @@
                         <th>Items</th>
                         <th>Quantity</th>
                         <th>Date</th>
-                        <th>Credit</th>
-                        <th>Debit</th>
+                        <th>Credit Purchase</th>
+                        <th>Debit Payment</th>
                         <th>Balance</th>
                         <th class="perday_action dispare">Action</th>
                     </tr>
@@ -249,9 +245,9 @@
                     <td></td>
                     <td></td>
                     <td></td>
-                    <td></td>
                     <td ><span id="search_credit"></span><span id="credit_total"></span></td>
                     <td class="dispare"><span id="search_debit"></span><span id="debit_total"></span></td>
+                    <td></td>
                     <td class="dispare"></td>
                 </tr>
             </tfoot>
@@ -280,11 +276,24 @@ $(document).ready(function(){
         url:"{{url('get_clients')}}",
         success:function(data){
             console.log(data);
+             $('#client_name').html('');
+            $('#cd_client_name').html('');
+            $('#client_clients_list').html('');
+            $('#cd_search_client_name').html('');
         $.each(data, function(key, val) {
 
                 $('#client_name').append(
                     '<option value="'+val.client_name+'">'+val.client_name+'</option>'
                     );
+                $('#cd_client_name').append(
+                    '<option value="'+val.client_name+'">'+val.client_name+'</option>'
+                );
+                $('#cd_search_client_name').append(
+                    '<option value="'+val.client_name+'">'+val.client_name+'</option>'
+                );
+                $('#client_clients_list').append(
+                    '<option value="'+val.client_name+'">'+val.client_name+'</option>'
+                );
             });
         },
     });
@@ -317,6 +326,7 @@ $(document).ready(function(){
                          '<td class=Date'+data.id+'>'+data.Date+'</td>'+
                          '<td class=credit'+data.id+'>'+data.credit+'</td>'+
                          '<td class=debit'+data.id+'>'+data.debit+'</td>'+
+                         '<td class=balance'+data.id+'>'+data.balance+'</td>'+
                          '<td class="perday_hid dispare">'+
                               '<a  class=editcd'+data.id+' title="Edit"'+
                               'data-toggle="tooltip"><i'+ 
@@ -333,15 +343,15 @@ $(document).ready(function(){
                         $('#cd_form').hide();
                         $('.edit_cd').show();
                         $('.update_id').val(data.id);
-                        $('.update_client_name').val(data.client_name);
-                        $('.update_PlotNo').val(data.PlotNo);
-                        if(data.credit != undefined){
-                        $('.update_Items').val(data.Items);
-                        $('.update_Quantity').val(data.Quantity);
+                        $('.update_client_name').val($('.client_name'+data.id).text());
+                        $('.update_PlotNo').val($('.PlotNo'+data.id).text());
+                        if(data.credit != 0){
+                        $('.update_Items').val($('.Items'+data.id).text());
+                        $('.update_Quantity').val($('.Quantity'+data.id).text());
                         }
-                        $('.update_Date').val(data.Date);
-                        if(data.credit != undefined){
-                            $('.update_Price').val(data.credit);
+                        $('.update_Date').val($('.Date'+data.id).text());
+                        if(data.credit != 0){
+                            $('.update_Price').val($('.credit'+data.id).text());
                             $('.updated_cd_type').html('');
                             $('.updated_cd_type').append(
                             '<option value="Purchase">Purchase</option>'
@@ -349,8 +359,8 @@ $(document).ready(function(){
                             $('.update_Items').show();
                             $('.update_Quantity').show();
                         }
-                        if(data.debit != undefined){
-                            $('.update_Price').val(data.debit);
+                        if(data.debit != 0){
+                            $('.update_Price').val($('.debit'+data.id).text());
                             $('.updated_cd_type').html('');
                             $('.updated_cd_type').append(
                             '<option value="Payment">Payment</option>'
@@ -359,45 +369,38 @@ $(document).ready(function(){
                             $('.update_Quantity').hide();
                         }
                     });
-                    
-                });
-                var creditTotal = 0;
-            // $(".cd_body td:nth-child(7)").each(function () {
-            // var credit_value=$(this).text();
 
-            //     if(credit_value=="undefined" || !isNaN(credit_value)){
-            //     credit_value=credit_value.replace("undefined","0");
-            // }
-            // // var credit_val = credit_value.replace(" ", "").replace(",-", "");
-            // creditTotal += parseInt(credit_value);
-            // console.log(creditTotal);
-            // });
-            // $('#credit_total').html(creditTotal);
-            // var debitTotal = 0;
-            // $(".cd_body td:nth-child(8)").each(function () {
-            //     var debit_value=$(this).text();
-            //     if($(this).text()=="undefined" || $(this).text()=="null" || !isNan(debit_value)){
-            //     debit_value=debit_value.replace("undefined","0");
-            // }
-            // // var debit_val = debit_value.replace(" ", "").replace(",-", "");
-            // debitTotal += parseInt(debit_value);
-            // });
-            // $('#debit_total').html(debitTotal);
-       $('.delete_client'+data.suc.id).click(function(e){
+        $('.delete_cd'+data.id).click(function(e){
+            $('#row'+data.id).fadeOut(200);
+        $('.cd_table').DataTable().destroy();
         e.preventDefault();
-        $('#row'+data.suc.id).fadeOut(200);
+        
        $.ajax({
             type:'get',
-            url:'delete_cd/'+data.suc.id,
+            url:'delete_cd/'+data.id,
             dataType:'json',
             success:function(data){
             toastr.warning('Delete Successfully');
-
+            $.each(data.balance,function(key,val){
+                $('.balance'+val.id).html(val.balance);
+            });
+            $('.cd_search').delay(500).submit();
         }
+
         });
+        
+      
    });
- $( ".edit_cd").submit(function(e){
+
+
+                    
+                });
+                var creditTotal = 0;
+            
+
+  $( ".edit_cd").submit(function(e){
     e.preventDefault();
+    $('.cd_table').DataTable().destroy();
      $.ajax({
         type:'post',
         url:'cd_update',
@@ -411,40 +414,22 @@ $(document).ready(function(){
                 $('.credit'+data.data.id).html(data.data.credit);
                 $('.Items'+data.data.id).html(data.data.Items);
                 $('.Quantity'+data.data.id).html(data.data.Quantity);
-                var creditTotal = 0;
-            $(".cd_body td:nth-child(7)").each(function () {
-            var value=$(this).text();
-                if($(this).text()=="undefined"){
-                value=value.replace("undefined","0");
-            }
-            var val = value.replace(" ", "").replace(",-", "");
-            creditTotal += parseInt(val);
-            });
-            $('#credit_total').html(creditTotal);
+                
             }
             if(data.data.debit!=undefined){
                 $('.debit'+data.data.id).html(data.data.debit);
-                var debitTotal = 0;
-            $(".cd_body td:nth-child(8)").each(function () {
-                var value=$(this).text();
-                if($(this).text()=="undefined"){
-                value=value.replace("undefined","0");
+                
             }
-            var val = value.replace(" ", "").replace(",-", "");
-            debitTotal += parseInt(val);
+            $('.balance'+data.data.id).html(data.data.balance);
+            $.each(data.balance,function(key,val){
+                $('.balance'+val.id).html(val.balance);
             });
-            $('#debit_total').html(debitTotal);
-            }
+            $('.cd_table').DataTable();
             toastr.success('Updated');
             $('#cd_form').show();
             $('.edit_cd').hide();
-        },
-        
-    });
-
-    
- });
- var table=$('.cd_table').DataTable();
+var table=$('.cd_table').DataTable();
+ console.log(table.columns( 6 ));
  table.columns( 6 ).every( function () {
     var sum = this
         .data()
@@ -453,6 +438,38 @@ $(document).ready(function(){
             return parseInt(a) + parseInt(b);
             // }
         } );
+        console.log(sum);
+        $("#credit_total").html(sum);
+  
+} );
+ table.columns( 7 ).every( function () {
+    var sum = this
+        .data()
+        .reduce( function (a,b) {
+            // if(b!="undefined" || b!="null"){
+            return parseInt(a) + parseInt(b);
+            // }
+        } );
+        $("#debit_total").html(sum);
+  
+} );
+        },
+        
+    });
+
+    
+ });
+ var table=$('.cd_table').DataTable();
+ console.log(table.columns( 6 ));
+ table.columns( 6 ).every( function () {
+    var sum = this
+        .data()
+        .reduce( function (a,b) {
+            // if(b!="undefined" || b!="null"){
+            return parseInt(a) + parseInt(b);
+            // }
+        } );
+        console.log(sum);
         $("#credit_total").html(sum);
   
 } );
@@ -481,11 +498,63 @@ $(document).ready(function(){
         if ($value == "client-form") {
             $('.purchase-form').hide();
             $('.client-form').fadeIn(500);
+            $.ajax({
+        type:'get',
+        url:"{{url('get_clients')}}",
+        success:function(data){
+            console.log(data);
+         $('#client_name').html('');
+            $('#cd_client_name').html('');
+            $('#client_clients_list').html('');
+            $('#cd_search_client_name').html('');
+        $.each(data, function(key, val) {
+
+                $('#client_name').append(
+                    '<option value="'+val.client_name+'">'+val.client_name+'</option>'
+                    );
+                $('#cd_client_name').append(
+                    '<option value="'+val.client_name+'">'+val.client_name+'</option>'
+                );
+                $('#cd_search_client_name').append(
+                    '<option value="'+val.client_name+'">'+val.client_name+'</option>'
+                );
+                $('#client_clients_list').append(
+                    '<option value="'+val.client_name+'">'+val.client_name+'</option>'
+                );
+            });
+        },
+    });
         }
 
         if ($value == "purchase-form") {
             $('.client-form').hide();
             $('.purchase-form').fadeIn(500);
+            $.ajax({
+        type:'get',
+        url:"{{url('get_clients')}}",
+        success:function(data){
+            console.log(data);
+             $('#client_name').html('');
+            $('#cd_client_name').html('');
+            $('#client_clients_list').html('');
+            $('#cd_search_client_name').html('');
+        $.each(data, function(key, val) {
+
+                $('#client_name').append(
+                    '<option value="'+val.client_name+'">'+val.client_name+'</option>'
+                    );
+                $('#cd_client_name').append(
+                    '<option value="'+val.client_name+'">'+val.client_name+'</option>'
+                );
+                $('#cd_search_client_name').append(
+                    '<option value="'+val.client_name+'">'+val.client_name+'</option>'
+                );
+                $('#client_clients_list').append(
+                    '<option value="'+val.client_name+'">'+val.client_name+'</option>'
+                );
+            });
+        },
+    });
         }
     });
      $('.cd_type').on('change', function() {
@@ -567,6 +636,10 @@ $( "#get_items").submit(function(e){
             alert('Errors')
           }
  else{
+            $('#client_name').html('');
+            $('#cd_client_name').html('');
+            $('#client_clients_list').html('');
+            $('#cd_search_client_name').html('');
 
       $('.client_body').append(
                 '<tr id=row'+data.suc.id+'>'+
@@ -590,12 +663,22 @@ $( "#get_items").submit(function(e){
                 '</tr>'
         );
         toastr.success('Success');
-        $('#client_name').empty();
+        // $('#client_name').empty();
+
         $.each(data.clients, function(key, val) {
 
                 $('#client_name').append(
                     '<option value="'+val.client_name+'">'+val.client_name+'</option>'
                     );
+                $('#cd_client_name').append(
+                    '<option value="'+val.client_name+'">'+val.client_name+'</option>'
+                );
+                $('#cd_search_client_name').append(
+                    '<option value="'+val.client_name+'">'+val.client_name+'</option>'
+                );
+                $('#client_clients_list').append(
+                    '<option value="'+val.client_name+'">'+val.client_name+'</option>'
+                );
             });
        }
        $('#perday_tbl').DataTable();
@@ -616,8 +699,26 @@ $( "#get_items").submit(function(e){
             url:'delete_client/'+data.suc.id,
             dataType:'json',
             success:function(data){
+                $('#client_name').html('');
+            $('#cd_client_name').html('');
+            $('#client_clients_list').html('');
+            $('#cd_search_client_name').html('');
             toastr.warning('Delete Successfully');
+            $.each(data.clients, function(key, val) {
 
+                $('#client_name').append(
+                    '<option value="'+val.client_name+'">'+val.client_name+'</option>'
+                    );
+                $('#cd_client_name').append(
+                    '<option value="'+val.client_name+'">'+val.client_name+'</option>'
+                );
+                $('#cd_search_client_name').append(
+                    '<option value="'+val.client_name+'">'+val.client_name+'</option>'
+                );
+                $('#client_clients_list').append(
+                    '<option value="'+val.client_name+'">'+val.client_name+'</option>'
+                );
+            });
         }
         });
    });
@@ -637,10 +738,32 @@ $( "#get_items").submit(function(e){
                     toastr.warning('Client Name Already Exist');
                     return false;
                 }
-            $('.client_name'+data.data.id).html(data.data.client_name);
+            
+            else{
+                $('.client_name'+data.data.id).html(data.data.client_name);
             $('.shop_name'+data.data.id).html(data.data.shop_name);
             $('.mobile_no'+data.data.id).html(data.data.mobile_number);
             toastr.success('Updated');
+                $('#client_name').html('');
+            $('#cd_client_name').html('');
+            $('#client_clients_list').html('');
+            $('#cd_search_client_name').html('');
+           $.each(data.clients, function(key, val) {
+
+                $('#client_name').append(
+                    '<option value="'+val.client_name+'">'+val.client_name+'</option>'
+                    );
+                $('#cd_client_name').append(
+                    '<option value="'+val.client_name+'">'+val.client_name+'</option>'
+                );
+                $('#cd_search_client_name').append(
+                    '<option value="'+val.client_name+'">'+val.client_name+'</option>'
+                );
+                $('#client_clients_list').append(
+                    '<option value="'+val.client_name+'">'+val.client_name+'</option>'
+                );
+            });
+       }
         },
         
     });
@@ -670,6 +793,7 @@ $( ".client_search").submit(function(e){
             alert('Errors')
           }
  else{
+    $('.client_body').html('');
       $('.client_body').append(
                 '<tr id=row'+data.id+'>'+
                          '<td class=id'+data.id+'>'+data.id+'</td>'+
@@ -713,7 +837,25 @@ $( ".client_search").submit(function(e){
             dataType:'json',
             success:function(data){
             toastr.warning('Delete Successfully');
+            $('#client_name').html('');
+            $('#cd_client_name').html('');
+            $('#client_clients_list').html('');
+            $('#cd_search_client_name').html('');
+            $.each(data.clients, function(key, val) {
 
+                $('#client_name').append(
+                    '<option value="'+val.client_name+'">'+val.client_name+'</option>'
+                    );
+                $('#cd_client_name').append(
+                    '<option value="'+val.client_name+'">'+val.client_name+'</option>'
+                );
+                $('#cd_search_client_name').append(
+                    '<option value="'+val.client_name+'">'+val.client_name+'</option>'
+                );
+                $('#client_clients_list').append(
+                    '<option value="'+val.client_name+'">'+val.client_name+'</option>'
+                );
+            });
         }
         });
    });
@@ -731,7 +873,7 @@ $( ".client_search").submit(function(e){
 
   $("#cd_form").submit(function(e){
     e.preventDefault();
-    $('#cd_table').DataTable().destroy();
+    $('.cd_table').DataTable().destroy();
   $.ajax({
         type:'post',
         url:'add_cd',
@@ -777,61 +919,19 @@ $( ".client_search").submit(function(e){
         toastr.success('Success');
         $('#search_total').html('');
        }
-       $('.editcd'+data.suc.id).click(function() {
-        console.log($('tr > td:nth-child(8)').nextAll().text());
-                        // alert('val.Date');return false;
-                        $('#cd_form').hide();
-                        $('.edit_cd').show();
-                        $('.update_id').val(data.suc.id);
-                        $('.update_client_name').val(data.suc.client_name);
-                        $('.update_PlotNo').val(data.suc.PlotNo);
-                        if(data.suc.credit != undefined){
-                        $('.update_Items').val(data.suc.Items);
-                        $('.update_Quantity').val(data.suc.Quantity);
-                        }
-                        $('.update_Date').val(data.suc.Date);
-                        if(data.suc.credit != undefined){
-                            $('.update_Price').val(data.suc.credit);
-                            $('.updated_cd_type').html('');
-                            $('.updated_cd_type').append(
-                            '<option value="Purchase">Purchase</option>'
-                            );
-                            $('.update_Items').show();
-                            $('.update_Quantity').show();
-                        }
-                        if(data.suc.debit != undefined){
-                            $('.update_Price').val(data.suc.debit);
-                            $('.updated_cd_type').html('');
-                            $('.updated_cd_type').append(
-                            '<option value="Payment">Payment</option>'
-                            );
-                            $('.update_Items').hide();
-                            $('.update_Quantity').hide();
-                        }
-                    });
-       $('.delete_cd'+data.suc.id).click(function(e){
-        e.preventDefault();
-        $('#row'+data.suc.id).fadeOut(200);
-       $.ajax({
-            type:'get',
-            url:'delete_cd/'+data.suc.id,
-            dataType:'json',
-            success:function(data){
-            toastr.warning('Delete Successfully');
 
-        }
-        });
-   });
        var table=$('.cd_table').DataTable();
          table.columns( 6 ).every( function () {
             var sum = this
                 .data()
                 .reduce( function (a,b) {
                     // if(b!="undefined" || b!="null"){
+                        
                     return parseInt(a) + parseInt(b);
                     // }
                 } );
-                $("#credit_total").html(sum);
+                console.log(sum);
+                // $("#credit_total").html(sum);
           });
          table.columns( 7 ).every( function () {
             var sum = this
@@ -841,14 +941,88 @@ $( ".client_search").submit(function(e){
                     return parseInt(a) + parseInt(b);
                     // }
                 } );
-                $("#debit_total").html(sum);
+                // $("#debit_total").html(sum);
           });
+       $('.editcd'+data.suc.id).click(function() {
+                        // alert('val.Date');return false;
+                        $('#cd_form').hide();
+                        $('.edit_cd').show();
+                        $('.update_id').val(data.suc.id);
+                        $('.update_client_name').val($('.client_name'+data.suc.id).text());
+                        $('.update_PlotNo').val($('.PlotNo'+data.suc.id).text());
+                        if(data.suc.credit != 0){
+                        $('.update_Items').val($('.Items'+data.suc.id).text());
+                        $('.update_Quantity').val($('.Quantity'+data.suc.id).text());
+                        }
+                        $('.update_Date').val($('.Date'+data.suc.id).text());
+                        if(data.suc.credit != 0){
+                            $('.update_Price').val($('.credit'+data.suc.id).text());
+                            $('.updated_cd_type').html('');
+                            $('.updated_cd_type').append(
+                            '<option value="Purchase">Purchase</option>'
+                            );
+                            $('.update_Items').show();
+                            $('.update_Quantity').show();
+                        }
+                        if(data.suc.debit != 0){
+                            $('.update_Price').val($('.debit'+data.suc.id).text());
+                            $('.updated_cd_type').html('');
+                            $('.updated_cd_type').append(
+                            '<option value="Payment">Payment</option>'
+                            );
+                            $('.update_Items').hide();
+                            $('.update_Quantity').hide();
+                        }
+                    });
+       
+       $('.delete_cd'+data.suc.id).click(function(e){
+        $('#row'+data.suc.id).fadeOut(200);
+         $('.cd_table').DataTable().destroy();
+        e.preventDefault();
+       
+        
+       $.ajax({
+            type:'get',
+            url:'delete_cd/'+data.suc.id,
+            dataType:'json',
+            success:function(data){
+            toastr.warning('Delete Successfully');
+             var tables=$('.cd_table').DataTable();
+             tables.row( this ).delete();
+         tables.columns( 6 ).every( function () {
+            var sum = this
+                .data()
+                .reduce( function (a,b) {
+                    // if(b!="undefined" || b!="null"){
+                    return parseInt(a) + parseInt(b);
+                    // }
+                } );
+                console.log(sum);
+                // $("#credit_total").html(sum);
+          });
+         tables.columns( 7 ).every( function () {
+            var sum = this
+                .data()
+                .reduce( function (a,b) {
+                    // if(b!="undefined" || b!="null"){
+                    return parseInt(a) + parseInt(b);
+                    // }
+                } );
+                // $("#debit_total").html(sum);
+          });
+        }
+
+        });
+      
+   });
+       
         },
       });
    
   
       $( ".edit_cd").submit(function(e){
     e.preventDefault();
+    $('.cd_table').DataTable().destroy();
      $.ajax({
         type:'post',
         url:'cd_update',
@@ -868,9 +1042,34 @@ $( ".client_search").submit(function(e){
                 $('.debit'+data.data.id).html(data.data.debit);
                 
             }
+            $('.balance'+data.data.id).html(data.data.balance);
+            $.each(data.balance,function(key,val){
+                $('.balance'+val.id).html(val.balance);
+            });
             toastr.success('Updated');
             $('#cd_form').show();
             $('.edit_cd').hide();
+            var table=$('.cd_table').DataTable();
+            table.columns( 6 ).every( function () {
+            var sum = this
+                .data()
+                .reduce( function (a,b) {
+                    // if(b!="undefined" || b!="null"){
+                    return parseInt(a) + parseInt(b);
+                    // }
+                } );
+                // $("#credit_total").html(sum);
+          });
+         table.columns( 7 ).every( function () {
+            var sum = this
+                .data()
+                .reduce( function (a,b) {
+                    // if(b!="undefined" || b!="null"){
+                    return parseInt(a) + parseInt(b);
+                    // }
+                } );
+                // $("#debit_total").html(sum);
+          });
         },
         
     });

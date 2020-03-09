@@ -78,13 +78,15 @@ class CDController extends Controller
                     'mobile_number'     => $request->update_mobile_number,
             ]);
             $data=Client::find($request->update_id);
-            return response()->json(['data'=>$data]);
+            $client_get=Client::orderBy('id','DESC')->get();
+            return response()->json(['data'=>$data,'clients'=>$client_get]);
         }
     } 
     public function delete_client($id)
     {
             Client::find($id)->delete();
-            return response()->json('Delete');
+            $client_get=Client::orderBy('id','DESC')->get();
+            return response()->json(['Delete'=>'Delete','clients'=>$client_get]);
         
     }
     public function add_cd(Request $request)
@@ -131,6 +133,8 @@ class CDController extends Controller
     {
 
         if($request->category=='Purchase'){
+            $credit_data=Purchase::where('id',$request->update_id)->first();
+            $new_credit=$credit_data->credit-$request->update_Price;
             Purchase::where('id',$request->update_id)->update([
                 'client_name'   => $request->update_client_name,
                 'PlotNo'        => $request->update_PlotNo,
@@ -138,7 +142,16 @@ class CDController extends Controller
                 'Quantity'      => $request->update_Quantity,
                 'Date'          => $request->update_Date,
                 'credit'        => $request->update_Price,
+                'balance'       => $credit_data->balance-$new_credit,
             ]);
+            $credit_bal=Purchase::where('id','>',$request->update_id)->get();
+            foreach ($credit_bal as $id) {
+                $val=$id->balance-$new_credit;
+                Purchase::where('id',$id->id)->update([
+                'balance' => $val
+                ]);
+                
+            }
             Perday::where('cd_id',$request->update_id)->update([
                 'PlotNo'        => $request->update_PlotNo,
                 'Items'         => $request->update_Items,
@@ -149,15 +162,28 @@ class CDController extends Controller
             $cd=Purchase::where('id',$request->update_id)->first();
         }
         if($request->category=='Payment'){
+            $debit_data=Purchase::where('id',$request->update_id)->first();
+            $new_debit=$debit_data->debit-$request->update_Price;
             $cd=Purchase::where('id',$request->update_id)->update([
                 'client_name'   => $request->update_client_name,
                 'PlotNo'        => $request->update_PlotNo,
                 'Date'          => $request->update_Date,
                 'debit'         => $request->update_Price,
+                'balance'       => $debit_data->balance+$new_debit,
             ]);
+            $debit_bal=Purchase::where('id','>',$request->update_id)->get();
+            foreach ($debit_bal as $id) {
+                $val=$id->balance+$new_debit;
+                Purchase::where('id',$id->id)->update([
+                'balance' => $val
+                ]);
+                
+            }
             $cd=Purchase::where('id',$request->update_id)->first();
         }
-        return response()->json(['data'=>$cd]);
+        $new_bal=Purchase::where('id','>',$request->update_id)->get();
+        return response()->json(['data'=>$cd,'balance'=>$new_bal]);
+        
     } 
 
 
@@ -181,8 +207,22 @@ class CDController extends Controller
      */
     public function delete_cd($id)
     {
+        $data=Purchase::find($id);
+        if(!is_null($data->credit)){
+            $bal=Purchase::where('id','>',$id)->get();
+            foreach($bal as $balance){
+                Purchase::where('id',$balance->id)->update(['balance'=>$balance->balance-$data->credit]);
+            }
+        }
+        if(!is_null($data->debit)){
+            $bal=Purchase::where('id','>',$id)->get();
+            foreach($bal as $balance){
+                Purchase::where('id',$balance->id)->update(['balance'=>$balance->balance+$data->debit]);
+            }
+        }
         Purchase::find($id)->delete();
-        return response()->json('Delete Successfully!');
+        $ba=Purchase::where('id','>',$id)->get();
+        return response()->json(['delete'=>'Delete Successfully!','balance'=>$ba]);
     }
 
     public function client_search(Request $request){
